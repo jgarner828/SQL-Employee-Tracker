@@ -1,37 +1,36 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 const cTable = require('console.table');
-const { Resolver } = require('dns');
-
-const PORT = process.env.PORT || 3001;
-
-
-const app = express();
-
-// Express middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
 
 
 // create the connection to mySQL database
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',
-    database: 'employee_'
+    database: 'employee_db'
   });
 
 
-  //  INITIAL LOADING SCREEN......
-  // DISPLAY EMPLOYEE MANAGER  IN LARGE BOX
+// initial selection
+const selectOption = {
+  type: 'list',
+  name: 'choice',
+  message: 'What would you like to do?',
+  choices: ['View All Employees', 'Add Employees', 'Update Employee Role', 'View All Roles', 'Add Role', 'View All Departments', 'Add Department', 'Quit']
+}
 
-// What would you like to do?
-// View All Employees
-// Add Employees
-// Update Employee Role
-// View All Roles 
-// Add Role 
-// View All Departments 
-// Add Department 
-// Quit
-//
+
+
+
+inquirer
+  .prompt(selectOption)
+  .then((answer) => {
+    console.log(answer);
+  })
+  .catch((error) => {
+    if (error.isTtyError) {
+      // Prompt couldn't be rendered in the current environment
+    } else {
+      // Something else went wrong
+    }
+  });
