@@ -43,6 +43,8 @@ const { displayEmployeeTable,
 
 function manipulateDB() {
 
+  console.log('\n');
+
   inquirer
     .prompt(selectOption)
     .then((answer) => {

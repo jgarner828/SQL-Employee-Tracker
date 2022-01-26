@@ -1,13 +1,48 @@
+const inquirer = require('inquirer');
+const mysql = require('mysql2');
+
+// create the connection to mySQL database
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: 'employee_db'
+});
+
+
 function displayEmployeeTable() {
-    console.log("displayEmployeeTable")
-  }
+
+  db.query('SELECT * FROM employee', (err, rows) => {
+    if(err) {
+      console.log(err)
+    } else  {
+      console.table(rows);
+      console.log('\n');
+    }
+  })
+}
   
 function displayRoleTable() {
-    console.log("displayRoleTable")
+    db.query('SELECT * FROM role', (err, rows) => {
+      if(err) {
+        console.log(err)
+      } else  {
+        console.table(rows);
+        console.log('\n');
+      }
+    })
   }
   
 function displayDepartmentTable() {
-    console.log("displayDepartmentTable")
+
+    db.query('SELECT * FROM department', (err, rows) => {
+      if(err) {
+        console.log(err)
+      } else  {
+        console.table(rows);
+        console.log('\n');
+      }
+    })
   }
   
 function getNewEmployeeInfo() {
