@@ -62,25 +62,32 @@ function manipulateDB() {
 
 
 function checkOption(selected) {
-  switch(selected) {
-    case 'View All Employees': viewEmployees();
-      break;
-    case 'Add Employees': addEmployees();
-      break;
-    case 'Update Employee Role': updateRole();
-      break;
-    case 'View All Roles': viewRoles();
-      break;
-    case 'Add Role': addRole();
-      break;
-    case 'View All Departments': viewDepartments();
-      break;
-    case 'Add Department': addDepartment();
-      break;
-    case 'Quit': quit();
-      break;
-  }
 
+
+    if(selected === 'View All Employees') {
+      viewEmployees();
+    }
+    if(selected === 'Add Employees') {
+      addEmployees();
+    }
+    if(selected === 'Update Employee Role') { 
+     updateRole();
+    }
+    if(selected === 'View All Roles'){
+      viewRoles(); 
+    }
+    if(selected === 'Add Role'){
+      addRole();
+    }
+    if(selected === 'View All Departments'){
+      viewDepartments();
+    }
+    if(selected === 'Add Department'){
+      addDepartment();
+    }
+    if(selected === 'Quit'){
+      quit();
+    }
 }
 
 
