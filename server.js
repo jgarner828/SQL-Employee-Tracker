@@ -1,12 +1,15 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
-const cTable = require('console.table');
+
+//sets process.env variables
+require('dotenv').config();
 
 
 // create the connection to mySQL database
 const db = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
     database: 'employee_db'
   });
 
@@ -19,16 +22,32 @@ const selectOption = {
   choices: ['View All Employees', 'Add Employees', 'Update Employee Role', 'View All Roles', 'Add Role', 'View All Departments', 'Add Department', 'Quit']
 }
 
+const { displayEmployeeTable,
+      displayRoleTable,
+      displayDepartmentTable,
+      getNewEmployeeInfo,
+      updateEmployeeTable,
+      getNewRoleInfo,
+      getNewDepartmentInfo,
+      updateDepartmentTable,
+      selectEmployeefromTable,
+      getNewRole,
+      updateRoleTable} = require('./assets/index.js');
 
 
-const manipulateDB = async function() {
+// 
+// 
+// START OF FUNCTIONS
+// 
+// 
+
+function manipulateDB() {
 
   inquirer
     .prompt(selectOption)
     .then((answer) => {
       checkOption(answer.choice); 
     })
-    .then()
     .catch((error) => {
       if (error.isTtyError) {
         // Prompt couldn't be rendered in the current environment
@@ -38,6 +57,7 @@ const manipulateDB = async function() {
     });
 
 }
+
 
 function checkOption(selected) {
   switch(selected) {
@@ -61,47 +81,71 @@ function checkOption(selected) {
 
 }
 
-const viewEmployees = async function() {
-  console.log('in viewEmployees function\n');
+
+async function viewEmployees() {
+  await displayEmployeeTable();
   manipulateDB();
 }
 
-const addEmployees = async function() {
-  console.log('in addEmployees function\n');
+async function viewRoles() {
+  await displayRoleTable();
   manipulateDB();
 }
 
-const updateRole = async function() {
-  console.log('in updateRole function\n');
+async function viewDepartments() {
+  await displayDepartmentTable();
   manipulateDB();
 }
 
-const viewRoles = async function() {
-  console.log('in viewRoles function\n');
+
+async function addEmployees() {
+
+  await displayEmployeeTable();
+  await getNewEmployeeInfo();
+  await updateEmployeeTable();
   manipulateDB();
 }
 
-const addRole = async function() {
-  console.log('in addRole function\n');
+
+async function addRole() {
+
+  await displayRoleTable();
+  await getNewRoleInfo();
+  await updateRoleTable();
   manipulateDB();
 }
 
-const viewDepartments = async function() {
-  console.log('in viewDepartments function\n');
+
+
+async function addDepartment() {
+
+  await displayDepartmentTable();
+  await getNewDepartmentInfo();
+  await updateDepartmentTable();
   manipulateDB();
 }
 
-const addDepartment = async function() {
-  console.log('in addDepartment function\n');
+
+async function updateRole() {
+
+  await selectEmployeefromTable();
+  await getNewRole();
+  await updateRoleTable();
   manipulateDB();
 }
 
-const quit = async function() {
-  console.log('in quit function\n');
+
+
+function quit() {
   return;
 }
 
 
 
+// 
+// 
+// START OF CODE
+// 
+// 
 
 manipulateDB();
