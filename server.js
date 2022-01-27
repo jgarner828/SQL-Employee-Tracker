@@ -19,20 +19,17 @@ const selectOption = {
   type: 'list',
   name: 'choice',
   message: 'What would you like to do?',
-  choices: ['View All Employees', 'Add Employees', 'Update Employee Role', 'View All Roles', 'Add Role', 'View All Departments', 'Add Department', 'Quit']
+  loop: false,
+  choices: ['View All Employees', 'View All Roles', 'View All Departments', 'Add Employees','Add Role', 'Add Department', 'Update Employee Role',  'Quit']
 }
 
 const { displayEmployeeTable,
       displayRoleTable,
       displayDepartmentTable,
       getNewEmployeeInfo,
-      updateEmployeeTable,
       getNewRoleInfo,
       getNewDepartmentInfo,
-      updateDepartmentTable,
-      selectEmployeefromTable,
-      getNewRole,
-      updateRoleTable} = require('./assets/index.js');
+      selectEmployeefromTable } = require('./assets/index.js');
 
 
 // 
@@ -91,6 +88,7 @@ function checkOption(selected) {
 }
 
 
+
 async function viewEmployees() {
   await displayEmployeeTable();
   manipulateDB();
@@ -108,19 +106,19 @@ async function viewDepartments() {
 
 
 async function addEmployees() {
-
-  await displayEmployeeTable();
+  await displayRoleTable();
   await getNewEmployeeInfo();
-  await updateEmployeeTable();
   manipulateDB();
 }
+
+
+
 
 
 async function addRole() {
 
   await displayRoleTable();
   await getNewRoleInfo();
-  await updateRoleTable();
   manipulateDB();
 }
 
@@ -130,7 +128,6 @@ async function addDepartment() {
 
   await displayDepartmentTable();
   await getNewDepartmentInfo();
-  await updateDepartmentTable();
   manipulateDB();
 }
 
@@ -139,7 +136,6 @@ async function updateRole() {
 
   await selectEmployeefromTable();
   await getNewRole();
-  await updateRoleTable();
   manipulateDB();
 }
 
@@ -158,3 +154,4 @@ function quit() {
 // 
 
 manipulateDB();
+
