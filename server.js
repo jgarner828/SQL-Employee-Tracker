@@ -20,7 +20,7 @@ const selectOption = {
   name: 'choice',
   message: 'What would you like to do?',
   loop: false,
-  choices: ['View All Employees', 'View All Roles', 'View All Departments', 'Add Employees','Add Role', 'Add Department', 'Update Employee Role',  'Quit']
+  choices: ['View All Employees', 'View All Roles', 'View All Departments', 'Add Employees','Add Role', 'Add Department', 'Update Employee',  'Quit']
 }
 
 const { displayEmployeeTable,
@@ -29,7 +29,7 @@ const { displayEmployeeTable,
       getNewEmployeeInfo,
       getNewRoleInfo,
       getNewDepartmentInfo,
-      selectEmployeefromTable } = require('./assets/index.js');
+      updateEmployee } = require('./assets/index.js');
 
 
 // 
@@ -67,7 +67,7 @@ function checkOption(selected) {
     if(selected === 'Add Employees') {
       addEmployees();
     }
-    if(selected === 'Update Employee Role') { 
+    if(selected === 'Update Employee') { 
      updateRole();
     }
     if(selected === 'View All Roles'){
@@ -112,9 +112,6 @@ async function addEmployees() {
 }
 
 
-
-
-
 async function addRole() {
 
   await displayRoleTable();
@@ -134,8 +131,7 @@ async function addDepartment() {
 
 async function updateRole() {
 
-  await selectEmployeefromTable();
-  await getNewRole();
+  await updateEmployee();
   manipulateDB();
 }
 

@@ -266,26 +266,66 @@ function getNewDepartmentInfo() {
 }
 
 
-function updateEmployeeTable(data) {
-  console.log(data)
-}
 
 
+function updateEmployee() {
 
-function updateRoleTable() {
-    console.log("updateRoleTable")
-}
+  return new Promise((resolve, reject) => {
+    inquirer
+    .prompt([
+              {
+                type: 'input',
+                name: 'id',
+                message: "What is the ID of the employee you would like to update?",
+                validate: function(answer) {
+                  if(answer.length < 1) {
+                    return console.log('You must enter in an id.')
+                  }
+                  return true;
+                  }
+              },
+              {
+                type: 'list',
+                name: 'choice',
+                message: 'What would you like to change?',
+                loop: false,
+                choices: ['first_name', 'last_name', 'role_id', 'manager_id']
+              },
+              {
+                type: 'input',
+                name: 'newValue',
+                message: "What is the new value for this employee?",
+                validate: function(answer) {
+                  if(answer.length < 1) {
+                    return console.log('You must enter in a value.')
+                  }
+                  return true;
+                  }
+              }
+    ])
   
-
-
-function updateDepartmentTable() {
-    console.log("updateDepartmentTable")
-}
-
-
-
-function selectEmployeefromTable() {
-  console.log("selectEmployeefromTable")
+    .then((answers) => {
+      // console.log(answers);
+      db.query(`UPDATE employee SET ${answers.choice} = "${answers.newValue}" WHERE id = ${answers.id}`, (err, rows) => {
+        if(err) {
+          console.log(err)
+          reject(err);
+        } else  {
+          console.log(`Successfully added ${answers.newValue} in ${answers.choice} for $${answers.id}\n`)
+          resolve();
+  
+        }
+      })
+    })
+  
+    .catch((error) => {
+      if (error.isTtyError) {
+        // Prompt couldn't be rendered in the current environment
+      } else {
+        // Something else went wrong
+      }
+    });
+    })
 }
 
 
@@ -301,4 +341,4 @@ module.exports = { displayEmployeeTable,
   getNewEmployeeInfo,
   getNewRoleInfo,
   getNewDepartmentInfo,
-  selectEmployeefromTable }
+  updateEmployee }
