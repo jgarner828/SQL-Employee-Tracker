@@ -65,7 +65,8 @@ function displayDepartmentTable() {
         console.log('\n');
         resolve();
       }
-    })})
+    })
+  })
 }
   
 
@@ -153,13 +154,115 @@ function getNewEmployeeInfo() {
 
 
 function getNewRoleInfo() {
-    console.log("getNewRoleInfo")
+    
+  const newRole = [
+    {
+      type: 'input',
+      name: 'title',
+      message: "What is new role?",
+      validate: function(answer) {
+        if(answer.length < 1) {
+          return console.log('You must enter in a role.')
+        }
+        return true;
+      }
+    },
+    {
+      type: 'input',
+      name: 'salary',
+      message: "What is new role's salary?",
+      validate: function(answer) {
+        if(answer.length < 1) {
+          return console.log('You must enter in a salary.')
+        }
+        return true;
+      }
+    },
+    {
+      type: 'input',
+      name: 'department_id',
+      message: "What is department id?",
+      validate: function(answer) {
+        if(answer.length < 1) {
+          return console.log('You must enter in an id')
+        }
+        return true;
+      }
+    }
+  ]
+
+  return new Promise((resolve, reject) => {
+    inquirer
+    .prompt(newRole)
+  
+    .then((answers) => {
+      // console.log(answers);
+      db.query(`INSERT INTO role (title, salary, department_id) VALUES  ("${answers.title}", "${answers.salary}", ${answers.department_id})`, (err, rows) => {
+        if(err) {
+          console.log(err)
+          reject(err);
+        } else  {
+          console.log(`Successfully added ${answers.title} in ${answers.department_id} for $${answers.salary}\n`)
+          resolve();
+  
+        }
+      })
+    })
+  
+    .catch((error) => {
+      if (error.isTtyError) {
+        // Prompt couldn't be rendered in the current environment
+      } else {
+        // Something else went wrong
+      }
+    });
+    })
 }
   
 
 
 function getNewDepartmentInfo() {
-  console.log("getNewDepartmentInfo")
+  
+  const newDepartment = [
+    {
+      type: 'input',
+      name: 'name',
+      message: "What is new department name?",
+      validate: function(answer) {
+        if(answer.length < 1) {
+          return console.log('You must enter in a department.')
+        }
+        return true;
+      }
+    }
+  ]
+
+  return new Promise((resolve, reject) => {
+    inquirer
+    .prompt(newDepartment)
+  
+    .then((answers) => {
+      // console.log(answers);
+      db.query(`INSERT INTO department (name) VALUES  ("${answers.name}")`, (err, rows) => {
+        if(err) {
+          console.log(err)
+          reject(err);
+        } else  {
+          console.log(`Successfully added ${answers.name}\n`)
+          resolve();
+  
+        }
+      })
+    })
+  
+    .catch((error) => {
+      if (error.isTtyError) {
+        // Prompt couldn't be rendered in the current environment
+      } else {
+        // Something else went wrong
+      }
+    });
+  })
 }
 
 
