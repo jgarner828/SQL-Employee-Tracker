@@ -287,7 +287,7 @@ function updateEmployee() {
       name: 'choice',
       message: 'What would you like to change?',
       loop: false,
-      choices: ['first_name', 'last_name', 'role_id', 'manager_id']
+      choices: ['First Name', 'Last Name', 'Role Id', 'Manager Id']
     },
     {
       type: 'input',
@@ -308,6 +308,22 @@ function updateEmployee() {
     .prompt(updateEmployeeQuestions)
   
     .then((answers) => {
+
+      if (answers.choice === "First Name"){
+        answers.choice = 'first_name'
+      }
+      if (answers.choice === "Last Name"){
+        answers.choice = 'last_name'
+      }
+      if (answers.choice === "Role Id"){
+        answers.choice = 'role_id'
+      }
+      if (answers.choice === "Manager Id"){
+        answers.choice = 'manager_id'
+      }
+      
+      
+      
       // console.log(answers);
       db.query(`UPDATE employee SET ${answers.choice} = "${answers.newValue}" WHERE id = ${answers.id}`, (err, rows) => {
         if(err) {
