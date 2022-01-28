@@ -10,7 +10,7 @@
 
   # Usage
 
-  **Run server.js file in terminal**
+  **For sample database, in mysqul run 'source schema.sql' then ' source seeds.sql'. To run program, install dependencies then run 'npm start'**
   
   # License
   

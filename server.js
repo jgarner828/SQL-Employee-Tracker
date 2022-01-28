@@ -20,7 +20,7 @@ const selectOption = {
   name: 'choice',
   message: 'What would you like to do?',
   loop: false,
-  choices: ['View All Employees', 'View All Roles', 'View All Departments', 'Add Employees','Add Role', 'Add Department', 'Update Employee',  'Quit']
+  choices: ['View All Employees', 'View All Roles', 'View All Departments', 'Add Employees','Add Role', 'Add Department', 'Update Employee', 'Delete Employee',  'Quit']
 }
 
 const { displayEmployeeTable,
@@ -29,7 +29,8 @@ const { displayEmployeeTable,
       getNewEmployeeInfo,
       getNewRoleInfo,
       getNewDepartmentInfo,
-      updateEmployee } = require('./assets/index.js');
+      updateEmployee,
+      deleteAEmployee } = require('./assets/index.js');
 
 
 // 
@@ -82,6 +83,9 @@ function checkOption(selected) {
     if(selected === 'Add Department'){
       addDepartment();
     }
+    if(selected === 'Delete Employee'){
+      deleteEmployee();
+    }
     if(selected === 'Quit'){
       quit();
     }
@@ -106,6 +110,7 @@ async function viewDepartments() {
 
 
 async function addEmployees() {
+  await displayEmployeeTable();
   await displayRoleTable();
   await getNewEmployeeInfo();
   manipulateDB();
@@ -113,7 +118,6 @@ async function addEmployees() {
 
 
 async function addRole() {
-
   await displayRoleTable();
   await getNewRoleInfo();
   manipulateDB();
@@ -130,8 +134,15 @@ async function addDepartment() {
 
 
 async function updateRole() {
-
+  await displayEmployeeTable();
   await updateEmployee();
+  manipulateDB();
+}
+
+
+async function deleteEmployee() {
+ await displayEmployeeTable();
+  await deleteAEmployee();
   manipulateDB();
 }
 

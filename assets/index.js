@@ -270,39 +270,42 @@ function getNewDepartmentInfo() {
 
 function updateEmployee() {
 
+  const updateEmployeeQuestions = [
+    {
+      type: 'input',
+      name: 'id',
+      message: "What is the ID of the employee you would like to update?",
+      validate: function(answer) {
+        if(answer.length < 1) {
+          return console.log('You must enter in an id.')
+        }
+        return true;
+        }
+    },
+    {
+      type: 'list',
+      name: 'choice',
+      message: 'What would you like to change?',
+      loop: false,
+      choices: ['first_name', 'last_name', 'role_id', 'manager_id']
+    },
+    {
+      type: 'input',
+      name: 'newValue',
+      message: "What is the new value for this employee?",
+      validate: function(answer) {
+        if(answer.length < 1) {
+          return console.log('You must enter in a value.')
+        }
+        return true;
+        }
+    }
+  ];
+
   return new Promise((resolve, reject) => {
+
     inquirer
-    .prompt([
-              {
-                type: 'input',
-                name: 'id',
-                message: "What is the ID of the employee you would like to update?",
-                validate: function(answer) {
-                  if(answer.length < 1) {
-                    return console.log('You must enter in an id.')
-                  }
-                  return true;
-                  }
-              },
-              {
-                type: 'list',
-                name: 'choice',
-                message: 'What would you like to change?',
-                loop: false,
-                choices: ['first_name', 'last_name', 'role_id', 'manager_id']
-              },
-              {
-                type: 'input',
-                name: 'newValue',
-                message: "What is the new value for this employee?",
-                validate: function(answer) {
-                  if(answer.length < 1) {
-                    return console.log('You must enter in a value.')
-                  }
-                  return true;
-                  }
-              }
-    ])
+    .prompt(updateEmployeeQuestions)
   
     .then((answers) => {
       // console.log(answers);
@@ -325,11 +328,56 @@ function updateEmployee() {
         // Something else went wrong
       }
     });
-    })
+  })
 }
 
 
+function deleteAEmployee() {
 
+
+ const deleteEmployeeId = [
+    {
+      type: 'input',
+      name: 'id',
+      message: "What is the ID of the employee you would like to delete?",
+      validate: function(answer) {
+        if(answer.length < 1) {
+          return console.log('You must enter in an id.')
+        }
+        return true;
+        }
+    }
+  ];
+
+  return new Promise((resolve, reject) => {
+
+    inquirer
+    .prompt(deleteEmployeeId)
+  
+    .then((answers) => {
+      // console.log(answers);
+      db.query(`DELETE from employee WHERE id = ${answers.id}`, (err, rows) => {
+        if(err) {
+          console.log('You do not have permission to delete this user.')
+          reject(err);
+        } else  {
+          console.log(`Successfully deleted id number: ${answers.id}`)
+          resolve();
+  
+        }
+      })
+    })
+  
+    .catch((error) => {
+      if (error.isTtyError) {
+        console.log('You do not have permission to delete this user.')
+      } else {
+        // Something else went wrong
+      }
+    });
+  })
+
+}
   
 
 
@@ -341,4 +389,5 @@ module.exports = { displayEmployeeTable,
   getNewEmployeeInfo,
   getNewRoleInfo,
   getNewDepartmentInfo,
-  updateEmployee }
+  updateEmployee,
+  deleteAEmployee }

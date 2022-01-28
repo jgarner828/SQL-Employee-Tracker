@@ -24,20 +24,20 @@ VALUES  ("HR Director", 100000, 1),
         ("Sales employee", 40000, 5);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES  ("Mr. HR", "Director", 1, NULL),
-        ("HR jr", "employee", 2, 1),
+VALUES  ("John", "Smith", 1, NULL),
+        ("Frank", "Potatoes", 2, 1),
 
-        ("Mr. Front Office", "Director", 3, NULL),
-        ("FO jr", "employee", 4, 3),
+        ("Sarah", "Mcloud", 3, NULL),
+        ("Kyle", "Slinskly", 4, 3),
 
-        ("Mr. Engineering", "Director", 5, NULL),
-        ("Eng jr", "employee", 6, 5),
+        ("Stephen", "Willant", 5, NULL),
+        ("Mike", "Abernathy", 6, 5),
 
-        ("Mr. Finance", "Director", 7, NULL),
-        ("F jr", "employee", 8, 7),
+        ("Darth", "Vader", 7, NULL),
+        ("Abraham", "Winch", 8, 7),
 
-        ("Mr. Sales", "Director", 9, NULL),
-        ("Sales jr", "employee", 10, 9);
+        ("Kathy", "Grape", 9, NULL),
+        ("Todd", "Thebod", 10, 9);
 
         
 
