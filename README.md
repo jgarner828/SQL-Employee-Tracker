@@ -10,7 +10,7 @@
 
   # Usage
 
-  **For sample database, in mysqul run 'source schema.sql' then ' source seeds.sql'. To run program, install dependencies then run 'npm start'**
+  **For sample database, in mySQL run 'source schema.sql' then ' source seeds.sql'. To run program, install dependencies then run 'npm start' or 'node server.js'**
   
   
 
